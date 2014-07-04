@@ -1,6 +1,5 @@
 package ${target.javaPackageFromFolder($SRC)};
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
@@ -23,7 +22,15 @@ public class ConversionServiceFactoryBean extends FormattingConversionServiceFac
         return new Converter<String, String>() {
  
             public String convert(String source) {
-                return StringUtils.trimToNull(source);
+            	if(source == null) {
+            		return null;
+            	}
+            	String res = source.trim();
+            	if(res == null || res.length() == 0) {
+            		return null;
+            	} else {
+            		return res;
+            	}
             }
         };
     }
